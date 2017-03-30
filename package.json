@@ -1,0 +1,20 @@
+{
+  "name": "taxi-battle-app",
+  "version": "1.0.0",
+  "description": "Flipping between multiple apps to find the cheapest taxi fare is a time-consuming hastle. Taxi Battle was created to solve that problem by allowing you to quickly and easily compare trip fare between Uber, Lyft, and yellow cab providers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victoramosjr/taxi-battle-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/victoramosjr/taxi-battle-app/issues"
+  },
+  "homepage": "https://github.com/victoramosjr/taxi-battle-app#readme"
+}
