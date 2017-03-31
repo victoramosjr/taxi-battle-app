@@ -6,6 +6,7 @@
 
   * [Team Members](#team-members)
   * [Tech Stack](#tech-stack)
+  * [Build Process](#build-process)
   * [Installation](#installation)
 
 ## <a name="team-members"></a>Team Members
@@ -20,5 +21,12 @@
   | [Express.js](https://github.com/expressjs/express) | [Redux.js](https://github.com/reactjs/redux) | [UBER API](https://developer.uber.com/docs/riders/ride-requests/introduction) |
   | [Sequelize](https://github.com/sequelize/sequelize) | [Material Design Lite](https://getmdl.io/index.html) | [LYFT API](https://developer.lyft.com/docs) |
   | [Sequelize CLI](https://github.com/sequelize/cli)| [Material UI](http://www.material-ui.com/#/) | [Taxi Fare Finder API](https://www.taxifarefinder.com/api.php)|
+
+## <a name="build-process"></a>Build Process
+
+  ![alt text](https://s25.postimg.org/ar3nz3uhr/taxi-battle-screen-01.png "Logo Title Text 1")
+  ![alt text](https://s25.postimg.org/qbb1pn4m7/taxi-battle-screen-02.png "Logo Title Text 1")
+  ![alt text](https://s25.postimg.org/qa13w82sf/taxi-battle-screen-03.png "Logo Title Text 1")
+
 
 ## <a name="installation"></a>Installation
