@@ -6,12 +6,20 @@
 
   * [Team Members](#team-members)
   * [Tech Stack](#tech-stack)
-  * [Build Process](#build-process)
+  * [Project Development Notes](#project-development-notes)
   * [Installation](#installation)
 
 ## <a name="team-members"></a>Team Members
-  * [Victor Amos](https://github.com/victoramosjr "Victor Amos' GitHub")
-  * [Chanice St Louis](https://github.com/chanicestl "Chanice St Louis' GitHub")
+
+  | [Victor Amos](https://github.com/victoramosjr "Victor Amos' GitHub") |
+  |:-----------:|
+  | ![alt text](https://s25.postimg.org/5n5jvttsr/victor_amos.png "Victor Amos") |
+  | [LinkedIn](https://www.linkedin.com/in/victoramosjr/) / [GitHub](https://github.com/victoramosjr) / [Twitter](https://twitter.com/mrvictoramos) / [Email](mailto:victor@victoramos.com) |
+
+  | [Chanice St Louis](https://github.com/chanicestl "Chanice St Louis' GitHub") |
+  |:----------------:|
+  | ![alt text](https://s25.postimg.org/nkxznyrvf/chanice_stlouis.png "Chanice St Louis") |
+  | [LinkedIn](https://www.linkedin.com/in/chanice-stlouis/) / [GitHub](https://github.com/chanicestl) / [Twitter](https://twitter.com/chanicestlouis) / [Email](mailto:chanicestlouis2020@gmail.com) |
 
 ## <a name="tech-stack"></a>Tech Stack
 
@@ -22,7 +30,7 @@
   | [Sequelize](https://github.com/sequelize/sequelize) | [Material Design Lite](https://getmdl.io/index.html) | [LYFT API](https://developer.lyft.com/docs) |
   | [Sequelize CLI](https://github.com/sequelize/cli)| [Material UI](http://www.material-ui.com/#/) | [Taxi Fare Finder API](https://www.taxifarefinder.com/api.php)|
 
-## <a name="build-process"></a>Build Process
+## <a name="project-development-notes"></a>Project Development Notes
 
   ![alt text](https://s25.postimg.org/ar3nz3uhr/taxi-battle-screen-01.png "Logo Title Text 1")
   ![alt text](https://s25.postimg.org/qbb1pn4m7/taxi-battle-screen-02.png "Logo Title Text 1")
