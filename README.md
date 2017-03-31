@@ -6,7 +6,7 @@
 
   * [Team Members](#team-members)
   * [Tech Stack](#tech-stack)
-  * [Build Process](#build-process)
+  * [Project Development Notes](#project-development-notes)
   * [Installation](#installation)
 
 ## <a name="team-members"></a>Team Members
@@ -22,7 +22,7 @@
   | [Sequelize](https://github.com/sequelize/sequelize) | [Material Design Lite](https://getmdl.io/index.html) | [LYFT API](https://developer.lyft.com/docs) |
   | [Sequelize CLI](https://github.com/sequelize/cli)| [Material UI](http://www.material-ui.com/#/) | [Taxi Fare Finder API](https://www.taxifarefinder.com/api.php)|
 
-## <a name="build-process"></a>Build Process
+## <a name="project-development-notes"></a>Project Development Notes
 
   ![alt text](https://s25.postimg.org/ar3nz3uhr/taxi-battle-screen-01.png "Logo Title Text 1")
   ![alt text](https://s25.postimg.org/qbb1pn4m7/taxi-battle-screen-02.png "Logo Title Text 1")
