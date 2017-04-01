@@ -1,26 +1,26 @@
+const LiveReloadPlugin = require('webpack-livereload-plugin');
+
 module.exports = {
-  entry: [
-    './frontend/entryRouter.js'
-  ],
+  entry: './frontend/entryRouter.js',
   output: {
-    path: __dirname,
-    publicPath: '/',
-    filename: 'bundle.js'
+    path: `${__dirname}/frontend/public`,
+    filename: 'bundle.js',
   },
   module: {
-    loaders: [{
-      exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['react', 'es2015', 'stage-1']
+    rules: [
+      { test: /\.(js|jsx)$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader',
+        options: { presets: ['es2015', 'react', 'stage-1'] } 
+      }, 
+      { test: /\.scss$/, 
+        use: ['style-loader', 'css-loader', 'sass-loader']  
       }
-    }]
-  },
+     ],
+  devtool: 'source-map',
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    enforceExtension:false
   },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './'
-  }
-};
+  plugins: [ new LiveReloadPlugin() ]
+}
