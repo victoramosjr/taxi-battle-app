@@ -12,7 +12,7 @@ app.get('/*', (req,res) => {
 	process.env.PORT means = whatever is in the environment variable PORT, or 3000 if there's nothing there.
 */
 app.listen(process.env.PORT || 3000, () => {
-	console.log("Server is running on Port 3000")
+	console.log("Server is running at http://localhost:3000")
 })
 
 module.exports = app;
