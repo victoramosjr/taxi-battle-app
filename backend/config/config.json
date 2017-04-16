@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "taxibattleadmin",
+    "password": "$secure2017",
+    "database": "taxibattle",
+    "host": "jdbc:postgresql://taxi-battle.c6fuxqzbygvo.us-east-1.rds.amazonaws.com:5432/taxibattle",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "taxibattleadmin",
+    "password": "$secure2017",
+    "database": "taxibattle",
+    "host": "jdbc:postgresql://taxi-battle.c6fuxqzbygvo.us-east-1.rds.amazonaws.com:5432/taxibattle",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "taxibattleadmin",
+    "password": "$secure2017",
+    "database": "taxibattle",
+    "host": "jdbc:postgresql://taxi-battle.c6fuxqzbygvo.us-east-1.rds.amazonaws.com:5432/taxibattle",
+    "dialect": "postgres"
+  }
+}
