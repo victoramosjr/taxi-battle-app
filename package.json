@@ -23,6 +23,8 @@
     "chai-jquery": "^2.0.0",
     "express": "^4.14.1",
     "jquery": "^3.2.1",
+    "mysql": "^2.13.0",
+    "nodemon": "^1.11.0",
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
     "react": "^15.4.2",
@@ -50,8 +52,12 @@
     "eslint-plugin-react": "^6.9.0",
     "mocha": "^3.2.0",
     "node-sass": "^3.13.1",
+    "react": "^0.14.8",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
     "webpack-dev-server": "^2.3.0"
+  },
+  "engines": {
+    "node": "7.2.1"
   }
 }
