@@ -1,4 +1,4 @@
-const LiveReloadPlugin = require('webpack-livereload-plugin');
+
 
 module.exports = {
   entry: './frontend/entryRouter.js',
@@ -22,6 +22,5 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     enforceExtension:false
-  },
-  plugins: [ new LiveReloadPlugin() ]
+  }
 }
