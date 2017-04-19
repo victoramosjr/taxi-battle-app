@@ -1,5 +1,3 @@
-
-
 module.exports = {
   entry: './frontend/entryRouter.js',
   output: {
