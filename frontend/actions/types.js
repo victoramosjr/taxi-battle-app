@@ -1,0 +1,1 @@
+export const GET_LOCATION = 'get_location';
