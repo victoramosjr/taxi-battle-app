@@ -7,7 +7,7 @@ export const getLocation = () => {
 
   const location = new Promise((resolve, reject) => {
     if (!geolocation) {
-      reject(new Error('Not Supported'));
+      reject(new Error('Browser Not Supported'));
     }
 
     geolocation.getCurrentPosition((position) => {
