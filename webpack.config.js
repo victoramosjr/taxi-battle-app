@@ -1,5 +1,3 @@
-const DotenvPlugin = require('webpack-dotenv-plugin');
-
 module.exports = {
   entry: './frontend/entryRouter.js',
   output: {
@@ -22,11 +20,5 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     enforceExtension:false
-  },
-  plugins: [
-    new DotenvPlugin({
-      sample: './.local-env',
-      path: './.env'
-    })
-  ]
+  }
 }

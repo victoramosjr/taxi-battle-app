@@ -16,8 +16,7 @@ class GoogleMap extends Component {
   }
 
   componentDidMount() {
-    const mapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
-    console.log(process.env.GOOGLE_MAPS_API_KEY)
+    const mapsApiKey = 'AIzaSyBB3U2peonxbj2LOnS3JqQLXO6aeqd4vdE';
     window.initMap = this.initMap;
     loadJS(`https://maps.googleapis.com/maps/api/js?key=${mapsApiKey}&callback=initMap`);
   }
