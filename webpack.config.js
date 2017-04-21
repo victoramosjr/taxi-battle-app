@@ -25,7 +25,7 @@ module.exports = {
   },
   plugins: [
     new DotenvPlugin({
-      sample: './.env',
+      sample: './.local-env',
       path: './.env'
     })
   ]
