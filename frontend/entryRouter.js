@@ -14,7 +14,7 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <Router history={browserHistory}>
-      <Route path='/' component={App}>
+      <Route path="/" component={App}>
         <IndexRoute component={Search} />
       </Route>
     </Router>
