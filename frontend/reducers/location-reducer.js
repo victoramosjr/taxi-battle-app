@@ -1,18 +1,17 @@
 import {
-  GET_LOCATION
+  GET_LOCATION,
+  FIND_ADDRESS
 } from '../actions/types';
 
-const INIT_STATE = {
-  coords: {
-    latitude: 0,
-    longitude: 0
-  }
-}
-
-export default function(state = INIT_STATE, action) {
+export default function(state = {}, action) {
   switch(action.type) {
     case GET_LOCATION:
-      return action.payload;
+      return { 
+        ...state, 
+        latitude: action.payload.coords.latitude,
+        longitude: action.payload.coords.longitude,
+        address: action.payload 
+      };
     default:
       return state
   }
