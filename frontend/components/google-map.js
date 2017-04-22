@@ -23,7 +23,7 @@ class GoogleMap extends Component {
 
   initMap() {
     const currentAddress = { lat: this.props.latitude, lng: this.props.longitude };
-    const zoom = 15;
+    const zoom = 18;
     
     const map = new google.maps.Map((this.refs.map), {
       zoom: zoom,
@@ -38,11 +38,9 @@ class GoogleMap extends Component {
   }
 
   render() {
-    const mapStyle = { width: 600, height: 600 };
+    const mapStyle = { width: 600, height: 400 };
 
-    return (
-      <div ref="map" style={mapStyle}></div>
-    );
+    return <div ref="map" style={mapStyle}></div>
   }
 }
 
