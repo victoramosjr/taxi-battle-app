@@ -1,47 +1,49 @@
 import React, { Component } from 'react';
-import { Card, CardText } from 'material-ui/Card';
-import Toggle from 'material-ui/Toggle';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import { Card, CardText } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import css from '../style/style.scss';
 
-injectTapEventPlugin();
-
-export default class SearchCard extends Component {
+class SearchCard extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      expanded: false,
-    };
-
-    this.handleExpandChange = this.handleExpandChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleExpand = this.handleExpand.bind(this);
-    this.handleReduce = this.handleReduce.bind(this);
+  
+    this.state = { showFindMe: true, searching: false }
   }
-
-  handleExpandChange(expanded) {
-    this.setState({ expanded });
-  }
-
-  handleToggle(event, toggle) {
-    this.setState({ expanded: toggle });
-  }
-
-  handleExpand() {
-    this.setState({ expanded: true });
-  }
-
-  handleReduce() {
-    this.setState({ expanded: false });
+  
+  searchToggle() {
+    if(showFindMe) {
+      return (
+        <div>
+          <button>FIND ME</button>
+        </div>
+      )
+    } 
   }
 
   render() {
     return (
-      <div>
-        SEARCH CARD
-      </div>  
-    );
+      <div className="search__search-card">
+        <MuiThemeProvider>
+          <Card>
+            <CardText>
+              {this.props.newAddress}
+              <form onSubmit={this.props.addressSearch}>
+                <TextField
+                  hintText="Enter Pickup Address"
+                  floatingLabelText="Pickup Address"
+                  defaultValue={this.props.address}
+                  fullWidth={true}
+                  onChange={this.props.onHandleChange.bind(this, "address")}
+                />
+              </form> 
+            </CardText>
+          </Card>
+        </MuiThemeProvider>
+      </div>
+
+    )
   }
 }
+
+export default SearchCard
