@@ -1,2 +1,1 @@
-export const GET_LOCATION = 'get_location';
-export const FIND_ADDRESS = 'find_address';
+export const DO_NOT_GEOLOCATE = 'do_not_geolocate';

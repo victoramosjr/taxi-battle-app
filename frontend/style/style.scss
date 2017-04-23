@@ -1,0 +1,51 @@
+/* SITE */
+.site {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+/* NAVIGATION */
+
+.navigation {
+  width: 100%;
+}
+
+/* FOOTER */
+
+.footer {
+  width: 100%;
+}
+
+/* APPLICATION */
+
+.search {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.search__loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.search__map {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.search__search-card {
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -200px;
+  z-index: 2;
+}

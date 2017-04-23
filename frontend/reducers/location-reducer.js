@@ -1,10 +1,13 @@
 import {
+  DO_NOT_GEOLOCATE,
   GET_LOCATION,
   FIND_ADDRESS
 } from '../actions/types';
 
-export default function(state = {}, action) {
+export default function(state = { reloaded: false }, action) {
   switch(action.type) {
+    case DO_NOT_GEOLOCATE:
+      return { ...state, reloaded: action.payload }
     case GET_LOCATION:
       return { 
         ...state, 

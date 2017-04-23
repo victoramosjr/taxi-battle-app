@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import css from '../style/style.scss';
 
 function loadJS(src) {
     var ref = window.document.getElementsByTagName("script")[0];
@@ -38,9 +39,9 @@ class GoogleMap extends Component {
   }
 
   render() {
-    const mapStyle = { width: 600, height: 400 };
+    const mapStyle = { width: 800, height: 400 };
 
-    return <div ref="map" style={mapStyle}></div>
+    return <div ref="map" className="search__map"></div>
   }
 }
 

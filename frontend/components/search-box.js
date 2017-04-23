@@ -63,6 +63,7 @@ class SearchBox extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <AutoComplete
+          id = "uniqeid" // id inserted to fix known console bug
           dataSource = {this.state.dataSource}
           onUpdateInput = {this.onUpdateInput}
           onNewRequest = {this.onNewRequest} 

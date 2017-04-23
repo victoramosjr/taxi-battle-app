@@ -1,10 +1,13 @@
 import axios from 'axios';
 
 import {
-  GET_LOCATION,
-  FIND_ADDRESS
+  DO_NOT_GEOLOCATE
 } from './types';
 
-export const getLocation = () => {
-  
+export const doNotGeolocate = () => {
+  console.log('DO NOT GEOLOCATE TRIGGERED')
+  return {
+    type: DO_NOT_GEOLOCATE,
+    payload: 'true'
+  }
 };
