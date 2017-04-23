@@ -1,2 +1,3 @@
 node_modules
+frontend/public
 *.DS_Store.env

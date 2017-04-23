@@ -7,12 +7,15 @@ import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import MapsMyLocation from 'material-ui/svg-icons/maps/my-location';
 import MapsDirections from 'material-ui/svg-icons/maps/directions';
+import EditorAttachMoney from 'material-ui/svg-icons/editor/attach-money';
 import SocialLocationCity from 'material-ui/svg-icons/social/location-city';
+import { green500 } from 'material-ui/styles/colors';
 import css from '../style/style.scss';
 
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: '#fc4a66',
+    accent1Color: green500
   },
 });
 
@@ -33,19 +36,51 @@ class SearchCard extends Component {
     super(props);
   
     this.state = { showFindMe: true, searching: false }
+
+    this.buttonToggle = this.buttonToggle.bind(this);
   }
   
-  searchToggle() {
-    if(showFindMe) {
+  buttonToggle() {
+    const {
+      buttonType,
+      buttonText,
+      buttonIcon
+    } = this.props;
+
+    
+      if (buttonType === "Directions") {
+        return (
+          <RaisedButton
+            onTouchTap={this.props.destinationSearch}
+            label={buttonText}
+            primary={true}
+            style={styles.button}
+            icon={<MapsDirections />}
+          />
+        )
+      }
+
       return (
         <div>
-          <button>FIND ME</button>
+          <RaisedButton
+            onTouchTap={this.props.destinationSearch}
+            label={buttonText}
+            secondary={true}
+            style={styles.button}
+            icon={<EditorAttachMoney />}
+          />
         </div>
       )
-    } 
+   
   }
 
   render() {
+
+    const {
+      floatingLabel,
+      textHint,
+    } = this.props;
+
     return (
       <div className="search__search-card">
         <MuiThemeProvider muiTheme={muiTheme}>
@@ -56,8 +91,8 @@ class SearchCard extends Component {
                 <div className="search__input">
                   <form onSubmit={this.props.pickupSearch}>
                     <TextField
-                      hintText="Enter Pickup Address"
-                      floatingLabelText="Pickup Address"
+                      hintText={textHint}
+                      floatingLabelText={floatingLabel}
                       defaultValue={this.props.address}
                       fullWidth={true}
                       onChange={this.props.onHandleChange.bind(this, "address")}
@@ -87,13 +122,7 @@ class SearchCard extends Component {
               </div>
 
               <div className="search__button-container">
-                <RaisedButton
-                  target="_blank"
-                  label="Enter Destination"
-                  primary={true}
-                  style={styles.button}
-                  icon={<MapsDirections />}
-                />
+                {this.buttonToggle()}
               </div>
 
             </CardText>
