@@ -29,6 +29,7 @@
     "jquery": "^3.2.1",
     "jsonp": "^0.2.1",
     "material-ui": "^0.17.4",
+    "material-ui-autocomplete-google-places": "^2.0.0",
     "mysql": "^2.13.0",
     "nodemon": "^1.11.0",
     "pg": "^6.1.2",

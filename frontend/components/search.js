@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import * as actions from '../actions';
 import GoogleMap from './google-map';
-import SearchBox from './search-box';
+import SearchCard from './search-card';
 
 class Search extends Component {
   constructor(props) {
@@ -57,7 +57,11 @@ class Search extends Component {
 
     return (
       <div>
-        <SearchBox />
+        <SearchCard 
+          address={address}
+          latitude={latitude}
+          longitude={longitude}
+        />
         <div className="map">
           <GoogleMap
             latitude={latitude}

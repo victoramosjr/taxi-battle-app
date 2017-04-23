@@ -40,7 +40,16 @@ class GoogleMap extends Component {
   render() {
     const mapStyle = { width: 600, height: 400 };
 
-    return <div ref="map" style={mapStyle}></div>
+    return (
+      <div>
+
+        <div
+          ref="map"
+          style={mapStyle}
+        >
+        </div>
+      </div>
+    )
   }
 }
 
