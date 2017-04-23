@@ -24,7 +24,7 @@ class GoogleMap extends Component {
 
   initMap() {
     const currentAddress = { lat: this.props.latitude, lng: this.props.longitude };
-    const zoom = 18;
+    const zoom = this.props.zoom;
     
     const map = new google.maps.Map((this.refs.map), {
       zoom: zoom,
