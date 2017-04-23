@@ -1,5 +1,7 @@
 # Taxi Battle
 
+  ![Taxi Battle Pickup Search](https://s25.postimg.org/4su1cq8in/taxi-battle-demo-1.gif "Taxi Battle Pickup Search")
+
   Flipping between multiple apps to find the cheapest taxi fare is a time-consuming hastle. Taxi Battle was created to solve that problem by allowing you to quickly and easily compare trip fare between Uber, Lyft, and yellow cab providers. 
 
 ## Table of Contents
