@@ -17,39 +17,31 @@ class Search extends Component {
     this.state = { latitude: null, longitude: null, address: null };
 
     this.findAddress = this.findAddress.bind(this);
-    this.searchBox = this.searchBox.bind(this);
     this.onHandleChange = this.onHandleChange.bind(this);
-    this.addressSearch = this.addressSearch.bind(this);
+    this.pickupSearch = this.pickupSearch.bind(this);
+    this.findMe = this.findMe.bind(this);
   }
 
   componentWillMount() {
     navigator.geolocation.getCurrentPosition(this.findAddress)
   }
 
-  findAddress({ coords: { latitude, longitude } }) {
+  onHandleChange(input, event) {
+    this.setState({ [input]: event.target.value })
+  }
 
+  findMe() {
+    this.setState({ latitude: null, longitude: null, address: null });
+    navigator.geolocation.getCurrentPosition(this.findAddress)
+  }
+
+  findAddress({ coords: { latitude, longitude } }) {
     this.setState({ latitude, longitude });
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${mapApiKey}`)
       .then(address => this.setState({ address: address.data.results[0].formatted_address }))
   }
 
-  searchBox() {
-    return (
-      <div>
-        <input 
-          type="text" 
-          value={this.state.address} 
-          onChange={this.onHandleChange.bind(this, "address")}
-        />
-      </div>
-    )
-  }
-
-  onHandleChange(input, event) {
-    this.setState({ [input]: event.target.value })
-  }
-
-  addressSearch(event) {
+  pickupSearch(event) {
     event.preventDefault();
     
     let address = this.state.address.split(" ").join("+");
@@ -93,7 +85,8 @@ class Search extends Component {
           latitude={latitude}
           longitude={longitude}
           onHandleChange={this.onHandleChange}
-          addressSearch={this.addressSearch}
+          pickupSearch={this.pickupSearch}
+          findMe={this.findMe}
         />
       </div>
     );

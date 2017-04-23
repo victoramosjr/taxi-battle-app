@@ -49,3 +49,39 @@
   margin-top: -200px;
   z-index: 2;
 }
+
+.search__input-locate-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 550px;
+  height: auto;
+}
+
+.search__input {
+  width: 500px;
+  height: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.search__locate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: auto;
+}
+
+.search__button-container {
+  display: flex;
+  width: 100%;
+  height: auto;
+  padding-top: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+

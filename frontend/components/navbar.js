@@ -15,7 +15,7 @@ class Navbar extends Component {
     return (
       <div className="navbar">
         <MuiThemeProvider muiTheme={muiTheme}>
-          <AppBar title="TaxiBattle" showMenuIconButton={false} />
+          <AppBar title="Taxi Battle" showMenuIconButton={false} />
         </MuiThemeProvider>
       </div>
     );
