@@ -7,6 +7,7 @@ import promiseMiddleware from 'redux-promise';
 
 import App from './components/app';
 import Search from './components/search';
+import Results from './components/results';
 import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore);
@@ -16,6 +17,7 @@ render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Search} />
+        <Route path="results" component={Results} />
       </Route>
     </Router>
   </Provider>

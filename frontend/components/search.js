@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router'
 import Loader from 'halogen/GridLoader';
 import axios from 'axios';
 
-import * as actions from '../actions';
+import { testAction } from '../actions/index';
 import GoogleMap from './google-map';
 import SearchCard from './search-card';
 import css from '../style/style.scss';
@@ -36,70 +38,95 @@ class Search extends Component {
     this.findMe = this.findMe.bind(this);
     this.destinationLoadTrigger = this.destinationLoadTrigger.bind(this);
     this.destinationSearch = this.destinationSearch.bind(this);
+    this.destinationSearchAgain = this.destinationSearchAgain.bind(this);
+    this.searchCurrentFares = this.searchCurrentFares.bind(this);
   }
 
   componentWillMount() {
-    navigator.geolocation.getCurrentPosition(this.findAddress)
+    navigator.geolocation.getCurrentPosition(this.findAddress);
+    console.log('PROPS LOAD:', this.props)
   }
 
   onHandleChange(input, event) {
-    this.setState({ [input]: event.target.value })
+    this.setState({ [input]: event.target.value });
   }
 
   findMe() {
     this.setState({ latitude: null, longitude: null, address: null });
-    navigator.geolocation.getCurrentPosition(this.findAddress)
-    console.log('FIND ME TRIGGERED')
+    navigator.geolocation.getCurrentPosition(this.findAddress);
   }
 
   findAddress({ coords: { latitude, longitude } }) {
     this.setState({ latitude, longitude });
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${mapApiKey}`)
       .then(address => {
-        console.log(address) 
-        this.setState({ 
+        this.setState({
           address: address.data.results[0].formatted_address,
-          destinationWillMountSearchTerm: address.data.results[2].formatted_address.split(" ").join("+")
-        })
-        console.log(this.state.destinationWillMountSearchTerm)
-      })
+          destinationWillMountSearchTerm: address.data.results[2].formatted_address.split(' ').join('+')
+        });
+      });
   }
 
   pickupSearch(event) {
+    let address = this.state.address.split(' ').join('+');
+
     event.preventDefault();
-    
-    let address = this.state.address.split(" ").join("+");
     this.setState({ latitude: null, longitude: null });
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${mapApiKey}`)
       .then(address => {
-        this.setState({ 
+        this.setState({
         address: address.data.results[0].formatted_address,
         latitude: address.data.results[0].geometry.location.lat,
         longitude: address.data.results[0].geometry.location.lng,
-        destinationWillMountSearchTerm: `${address.data.results[0].address_components[2].long_name.split(" ").join("+")},${address.data.results[0].address_components[5].short_name.split(" ").join("+")}`
-        })
-        console.log('PICKUP SEARCH', address)
-      })
+        destinationWillMountSearchTerm: `${address.data.results[0].address_components[2].long_name.split(' ').join('+')},${address.data.results[0].address_components[5].short_name.split(' ').join('+')}`
+        });
+      });
   }
 
   destinationLoadTrigger() {
-    setTimeout( () => {
-      this.setState({ destinationLoadTrigger: false })
-    }, 1000)
+    setTimeout(() => {
+      this.setState({ destinationLoadTrigger: false });
+    }, 1000);
   }
 
   destinationSearch() {
-    this.setState({ pickupSearch: false, destinationSearch: true })
+    this.setState({ pickupSearch: false, destinationSearch: true });
     this.destinationLoadTrigger();
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.destinationWillMountSearchTerm}&key=${mapApiKey}`)
       .then(address => {
-        console.log('DESTINATION MOUNT SEARCH COMPLETE')
         this.setState({
           destinationWillMountLatitude: address.data.results[0].geometry.location.lat,
           destinationWillMountLongitude: address.data.results[0].geometry.location.lng,
-        })
-        console.log(this.state.destinationWillMountLatitude, this.state.destinationWillMountLongitude)
-      })
+        });
+      });
+  }
+
+  destinationSearchAgain(e) {
+    console.log('SEARCH AGAIN TRIGGERED')
+    let address = this.state.destinationAddress.split(" ").join("+");
+    
+    e.preventDefault();
+    this.setState({
+      destinationLatitude: null,
+      destinationLongitude: null,
+      destinationFirstLoad: false
+    });
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${mapApiKey}`)
+      .then(address => {
+        this.setState({
+          destinationAddress: address.data.results[0].formatted_address,
+          destinationLatitude: address.data.results[0].geometry.location.lat,
+          destinationLongitude: address.data.results[0].geometry.location.lng,
+          destinationWillMountSearchTerm: `${address.data.results[0].address_components[2].long_name.split(' ').join('+')},${address.data.results[0].address_components[5].short_name.split(' ').join('+')}`
+        });
+      });
+  }
+
+  searchCurrentFares() {
+    console.log('Search Fares Triggered');
+    browserHistory.push('/results');
+    this.props.testAction(this.state);
+
   }
 
   render() {
@@ -124,25 +151,23 @@ class Search extends Component {
         return (
           <div className="search">
             <div className="search__loader">
-              <Loader 
-                color="#fc4a66" 
-                size="150px" 
-                margin="8px" 
+              <Loader
+                color="#fc4a66"
+                size="150px"
+                margin="8px"
               />
             </div>
-          </div> 
+          </div>
         );
       }
-
       return (
         <div className="search">
           <GoogleMap
-            zoom={18}
+            zoom={17}
             latitude={latitude}
             longitude={longitude}
           />
-
-          <SearchCard 
+          <SearchCard
             address={address}
             onHandleChange={this.onHandleChange}
             pickupSearch={this.pickupSearch}
@@ -152,23 +177,24 @@ class Search extends Component {
             textHint="Enter Pickup Address"
             buttonText="Enter Destination"
             buttonType="Directions"
+            inputType="Pickup"
           />
         </div>
       );
     }
-
+    
     if (destinationSearch && destinationLoadTrigger) {
       return (
         <div className="search">
           <div className="search__loader">
-            <Loader 
-              color="#fc4a66" 
-              size="150px" 
-              margin="8px" 
+            <Loader
+              color="#fc4a66"
+              size="150px"
+              margin="8px"
             />
           </div>
-        </div> 
-      )
+        </div>
+      );
     } else if (destinationSearch && !destinationLoadTrigger && destinationFirstLoad) {
       return (
         <div className="search">
@@ -177,64 +203,70 @@ class Search extends Component {
             latitude={destinationWillMountLatitude}
             longitude={destinationWillMountLongitude}
           />
-
           <SearchCard
             address={destinationAddress}
             onHandleChange={this.onHandleChange}
-            pickupSearch={this.pickupSearch}
             findMe={this.findMe}
-            destinationSearch={this.destinationSearch}
+            destinationSearchAgain={this.destinationSearchAgain}
+            searchCurrentFares={this.searchCurrentFares}
             floatingLabel="Destination Address"
             textHint="Enter Destination Address"
             buttonText="Search Current Fares"
             buttonType="Price"
+            inputType="Destination"
+            destinationLatitude={destinationLatitude}
+            destinationLongitude={destinationLongitude}
           />
         </div>
-      )
+      );
+    } else if (destinationSearch && !destinationLoadTrigger && !destinationFirstLoad) {
+      if (!destinationLatitude || !destinationLongitude) {
+        return (
+          <div className="search">
+            <div className="search__loader">
+              <Loader
+                color="#fc4a66"
+                size="150px"
+                margin="8px"
+              />
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <div className="search">
+          <GoogleMap
+            zoom={17}
+            latitude={destinationLatitude}
+            longitude={destinationLongitude}
+          />
+          <SearchCard
+            address={destinationAddress}
+            onHandleChange={this.onHandleChange}
+            findMe={this.findMe}
+            destinationSearchAgain={this.destinationSearchAgain}
+            searchCurrentFares={this.searchCurrentFares}
+            floatingLabel="Destination Address"
+            textHint="Enter Destination Address"
+            buttonText="Search Current Fares"
+            buttonType="Price"
+            inputType="Destination"
+            destinationLatitude={destinationLatitude}
+            destinationLongitude={destinationLongitude}
+          />
+        </div>
+      );
     }
-
-
   }
 }
 
-
-// if (destinationSearch) {
-//       if (!destinationLatitude || !destinationLongitude) {
-//         return (
-//           <div className="search">
-//             <div className="search__loader">
-//               <Loader 
-//                 color="#fc4a66" 
-//                 size="150px" 
-//                 margin="8px" 
-//               />
-//             </div>
-//           </div> 
-//         )
-//       }
-
-//       return (
-//         <div className="search">
-//           <GoogleMap
-//             latitude={}
-//             longitude={longitude}
-//           />
-
-//           <SearchCard 
-//             address={address}
-//             latitude={latitude}
-//             longitude={longitude}
-//             onHandleChange={this.onHandleChange}
-//             pickupSearch={this.pickupSearch}
-//             findMe={this.findMe}
-//             destinationSearch={this.destinationSearch}
-//           />
-//         </div>
-//       );
-//     }
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ testAction }, dispatch);
+}
 
 function mapStateToProps(state) {
   return { location: state.location };
 }
 
-export default connect(mapStateToProps, actions)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

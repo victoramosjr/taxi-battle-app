@@ -38,8 +38,43 @@ class SearchCard extends Component {
     this.state = { showFindMe: true, searching: false }
 
     this.buttonToggle = this.buttonToggle.bind(this);
+    this.inputToggle = this.inputToggle.bind(this);
   }
-  
+
+  inputToggle() {
+    const {
+      inputType,
+      textHint,
+      floatingLabel
+    } = this.props;
+
+    if (inputType === "Pickup") {
+      return (
+        <form onSubmit={this.props.pickupSearch}>
+          <TextField
+            hintText={textHint}
+            floatingLabelText={floatingLabel}
+            defaultValue={this.props.address}
+            fullWidth={true}
+            onChange={this.props.onHandleChange.bind(this, "address")}
+          />
+        </form>
+      )
+    }
+
+    return( 
+      <form onSubmit={this.props.destinationSearchAgain}>
+        <TextField
+          hintText={textHint}
+          floatingLabelText={floatingLabel}
+          defaultValue={this.props.address}
+          fullWidth={true}
+          onChange={this.props.onHandleChange.bind(this, "destinationAddress")}
+        />
+      </form>
+    )
+  }
+
   buttonToggle() {
     const {
       buttonType,
@@ -47,7 +82,6 @@ class SearchCard extends Component {
       buttonIcon
     } = this.props;
 
-    
       if (buttonType === "Directions") {
         return (
           <RaisedButton
@@ -57,21 +91,37 @@ class SearchCard extends Component {
             style={styles.button}
             icon={<MapsDirections />}
           />
-        )
+        );
       }
 
-      return (
+      if (buttonType === "Price") {
+        if (!this.props.destinationLatitude || !this.props.destinationLongitude) {
+          return (
+            <div>
+              <RaisedButton 
+                disabled={true}
+                onTouchTap={this.props.searchCurrentFares}
+                label={buttonText}
+                secondary={true}
+                style={styles.button}
+                icon={<EditorAttachMoney />}
+              />
+            </div>
+          );
+        }
+
+        return (
         <div>
           <RaisedButton
-            onTouchTap={this.props.destinationSearch}
+            onTouchTap={this.props.searchCurrentFares}
             label={buttonText}
             secondary={true}
             style={styles.button}
             icon={<EditorAttachMoney />}
           />
         </div>
-      )
-   
+      );
+      }
   }
 
   render() {
@@ -87,17 +137,9 @@ class SearchCard extends Component {
           <Card>
             <CardText>
               <div className="search__input-locate-container">
-                
+
                 <div className="search__input">
-                  <form onSubmit={this.props.pickupSearch}>
-                    <TextField
-                      hintText={textHint}
-                      floatingLabelText={floatingLabel}
-                      defaultValue={this.props.address}
-                      fullWidth={true}
-                      onChange={this.props.onHandleChange.bind(this, "address")}
-                    />
-                  </form>
+                  {this.inputToggle()}
                 </div>
 
                 <div className="search__locate">
@@ -108,7 +150,7 @@ class SearchCard extends Component {
                     onTouchTap={this.props.findMe}
                   >
                     <MapsMyLocation />
-                  </IconButton> 
+                  </IconButton>
 
                   <IconButton 
                     iconStyle={styles.mediumIcon}
@@ -129,8 +171,7 @@ class SearchCard extends Component {
           </Card>
         </MuiThemeProvider>
       </div>
-
-    )
+    );
   }
 }
 
