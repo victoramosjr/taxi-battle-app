@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import $ from 'jquery';
 
 import * as actions from '../actions';
 
@@ -16,9 +17,25 @@ class Results extends Component {
       destinationLongitude
     } = this.props.searchParameters;
 
-    axios.get(`https://api.taxifarefinder.com/fare?key=${TFFApiKey}&origin=${currentLatitude},${currentLongitude}&destination=${destinationLatitude},${destinationLongitude}`)
+    axios.get(`https://api.taxifarefinder.com/fare?key=${TFFApiKey}&origin=${currentLatitude},${currentLongitude}&destination=${destinationLatitude},${destinationLongitude}`, {
+      headers: {
+        "Access-Control-Allow-Origin" : "*",
+        "Content-Type" : "application/json",
+        "dataType" : 'application/json'
+      }
+    })
       .then((fare) => console.log('FARE:', fare));
   }
+
+//   var URL = `https://api.taxifarefinder.com/fare?key=${TFFApiKey}&origin=${currentLatitude},${currentLongitude}&destination=${destinationLatitude},${destinationLongitude}`
+    
+//     $.ajax({
+//       url: URL,
+//       type:'GET',
+//     }).done((fare) => {
+//       console.log('FARE AJAX: ', fare)
+//     })
+// }
 
   render() {
     return (
