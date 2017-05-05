@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import * as actions from '../actions';
-
+import JSONP from 'jsonp'
 const TFFApiKey = 'sw5VaSp7Xavu';
 
 class Results extends Component {
@@ -16,14 +16,29 @@ class Results extends Component {
       destinationLongitude
     } = this.props.searchParameters;
 
-    axios.get(`https://api.taxifarefinder.com/fare?key=${TFFApiKey}&origin=${currentLatitude},${currentLongitude}&destination=${destinationLatitude},${destinationLongitude}`)
-      .then((fare) => console.log('FARE:', fare));
+    const URL = `https://api.taxifarefinder.com/fare?key=${TFFApiKey}&origin=${currentLatitude},${currentLongitude}&destination=${destinationLatitude},${destinationLongitude}`
+
+    JSONP(URL, function(error, data) {
+        // handle results here
+        console.log('error: ', error)
+        console.log('data: ', data)
+    });
   }
 
   render() {
+    const { 
+      currentLatitude,
+      currentLongitude,
+      destinationLatitude,
+      destinationLongitude
+    } = this.props.searchParameters;
+    
     return (
       <div>
-
+        {currentLatitude}
+        {currentLongitude}
+        {destinationLatitude}
+        {destinationLongitude}
       </div>
     )
   }
