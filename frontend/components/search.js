@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 import Loader from 'halogen/GridLoader';
 import axios from 'axios';
 
@@ -29,7 +29,7 @@ class Search extends Component {
       destinationWillMountLongitude: null,
       destinationLatitude: null,
       destinationLongitude: null,
-      destinationAddress: null
+      destinationAddress: null,
     };
 
     this.findAddress = this.findAddress.bind(this);
@@ -44,7 +44,6 @@ class Search extends Component {
 
   componentWillMount() {
     navigator.geolocation.getCurrentPosition(this.findAddress);
-    console.log('PROPS LOAD:', this.props)
   }
 
   onHandleChange(input, event) {
@@ -59,10 +58,10 @@ class Search extends Component {
   findAddress({ coords: { latitude, longitude } }) {
     this.setState({ latitude, longitude });
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${mapApiKey}`)
-      .then(address => {
+      .then((address) => {
         this.setState({
           address: address.data.results[0].formatted_address,
-          destinationWillMountSearchTerm: address.data.results[2].formatted_address.split(' ').join('+')
+          destinationWillMountSearchTerm: address.data.results[2].formatted_address.split(' ').join('+'),
         });
       });
   }
@@ -73,12 +72,12 @@ class Search extends Component {
     event.preventDefault();
     this.setState({ latitude: null, longitude: null });
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${mapApiKey}`)
-      .then(address => {
+      .then((address) => {
         this.setState({
         address: address.data.results[0].formatted_address,
         latitude: address.data.results[0].geometry.location.lat,
         longitude: address.data.results[0].geometry.location.lng,
-        destinationWillMountSearchTerm: `${address.data.results[0].address_components[2].long_name.split(' ').join('+')},${address.data.results[0].address_components[5].short_name.split(' ').join('+')}`
+        destinationWillMountSearchTerm: `${address.data.results[0].address_components[2].long_name.split(' ').join('+')},${address.data.results[0].address_components[5].short_name.split(' ').join('+')}`,
         });
       });
   }
@@ -93,7 +92,7 @@ class Search extends Component {
     this.setState({ pickupSearch: false, destinationSearch: true });
     this.destinationLoadTrigger();
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.destinationWillMountSearchTerm}&key=${mapApiKey}`)
-      .then(address => {
+      .then((address) => {
         this.setState({
           destinationWillMountLatitude: address.data.results[0].geometry.location.lat,
           destinationWillMountLongitude: address.data.results[0].geometry.location.lng,
@@ -102,9 +101,8 @@ class Search extends Component {
   }
 
   destinationSearchAgain(e) {
-    console.log('SEARCH AGAIN TRIGGERED')
-    let address = this.state.destinationAddress.split(" ").join("+");
-    
+    const address = this.state.destinationAddress.split(' ').join('+');
+
     e.preventDefault();
     this.setState({
       destinationLatitude: null,
@@ -117,16 +115,14 @@ class Search extends Component {
           destinationAddress: address.data.results[0].formatted_address,
           destinationLatitude: address.data.results[0].geometry.location.lat,
           destinationLongitude: address.data.results[0].geometry.location.lng,
-          destinationWillMountSearchTerm: `${address.data.results[0].address_components[2].long_name.split(' ').join('+')},${address.data.results[0].address_components[5].short_name.split(' ').join('+')}`
+          destinationWillMountSearchTerm: `${address.data.results[0].address_components[2].long_name.split(' ').join('+')},${address.data.results[0].address_components[5].short_name.split(' ').join('+')}`,
         });
       });
   }
 
   searchCurrentFares() {
-    console.log('Search Fares Triggered');
     browserHistory.push('/results');
     this.props.testAction(this.state);
-
   }
 
   render() {
@@ -136,14 +132,13 @@ class Search extends Component {
       latitude,
       longitude,
       address,
-      destinationWillMountSearchTerm,
       destinationLoadTrigger,
       destinationFirstLoad,
       destinationWillMountLatitude,
       destinationWillMountLongitude,
       destinationLatitude,
       destinationLongitude,
-      destinationAddress
+      destinationAddress,
     } = this.state;
 
     if (pickupSearch) {
@@ -181,8 +176,8 @@ class Search extends Component {
           />
         </div>
       );
-    }
-    
+    }  
+
     if (destinationSearch && destinationLoadTrigger) {
       return (
         <div className="search">

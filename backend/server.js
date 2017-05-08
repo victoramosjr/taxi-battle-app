@@ -12,39 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 
-// app.all('*', function(req, res, next) {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-//     res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
-//      // intercept OPTIONS method
-//     if ('OPTIONS' == req.method) {
-//       res.send(200);
-//     }
-//     else {
-//       next();
-//     }
-// });
-
-// var originsWhitelist = [
-//   'http://localhost:3000',      //this is my front-end url for development
-//    'http://www.myproductionurl.com'
-// ];
-// var corsOptions = {
-//   origin: function(origin, callback){
-//         var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
-//         callback(null, isWhitelisted);
-//   },
-//   credentials:true
-// }
-// //here is the magic
-// app.use(cors(corsOptions))
-
-// app.all('*', function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//     next();
-//   });
-
 app.use((req, res, next) => {
   console.log(req.header)
   res.header('Access-Control-Allow-Origin', '*');
@@ -55,6 +22,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/user', indexRouter.User);
+app.use('/api/estimate', indexRouter.Estimate);
 
 app.get('/*', (req,res) => {
 	res.sendFile(path.join(__dirname, '../frontend/index.html'));
