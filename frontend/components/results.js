@@ -1,28 +1,58 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import JSONP from 'jsonp';
 
 import * as actions from '../actions';
-import JSONP from 'jsonp'
+
 const TFFApiKey = 'sw5VaSp7Xavu';
 
 class Results extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      taxifarefinder: '$20',
+      lyft: '',
+      uber: '',
+    };
+
+    this.getLyftEstimate = this.getLyftEstimate.bind(this);
+    this.getTaxiFareFinderEstimate = this.getTaxiFareFinderEstimate.bind(this);
+  }
 
   componentWillMount() {
+    this.getTaxiFareFinderEstimate();
+  }
+
+  getTaxiFareFinderEstimate() {
     const { 
       currentLatitude,
       currentLongitude,
       destinationLatitude,
-      destinationLongitude
+      destinationLongitude,
     } = this.props.searchParameters;
 
-    const URL = `https://api.taxifarefinder.com/fare?key=${TFFApiKey}&origin=${currentLatitude},${currentLongitude}&destination=${destinationLatitude},${destinationLongitude}`
+    const URL = `https://api.taxifarefinder.com/fare?key=${TFFApiKey}&origin=${currentLatitude},${currentLongitude}&destination=${destinationLatitude},${destinationLongitude}`;
 
-    JSONP(URL, function(error, data) {
-        // handle results here
-        console.log('error: ', error)
-        console.log('data: ', data)
+    const self = this;
+    JSONP(URL, (error, data) => {
+      self.setState({ taxifarefinder: `$${data.metered_fare}` });
     });
+  }
+
+  getLyftEstimate() {
+     const { 
+      currentLatitude,
+      currentLongitude,
+      destinationLatitude,
+      destinationLongitude,
+    } = this.props.searchParameters;
+
+    axios.get(`/api/estimate/lyft/${currentLatitude}/${currentLongitude}/${destinationLatitude}/${destinationLongitude}`)
+      .then(estimate => {
+        // this.setState({lyft: estimate})
+      });
   }
 
   render() {
@@ -30,15 +60,12 @@ class Results extends Component {
       currentLatitude,
       currentLongitude,
       destinationLatitude,
-      destinationLongitude
+      destinationLongitude,
     } = this.props.searchParameters;
     
     return (
       <div>
-        {currentLatitude}
-        {currentLongitude}
-        {destinationLatitude}
-        {destinationLongitude}
+        {this.state.taxifarefinder}
       </div>
     )
   }
