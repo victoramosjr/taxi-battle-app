@@ -37,7 +37,6 @@ axios({
 }).catch((error) => {
     res.send(error)
 })
-
 }
 
 router.route('/lyft/:currentLatitude/:currentLongitude/:destinationLatitude/:destinationLongitude')
