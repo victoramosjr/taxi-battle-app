@@ -61,35 +61,32 @@ class Results extends Component {
   }
 
   displayAllEstimate() {
-    let { lyft, taxifarefinder } = this.state;
+    const { lyft, taxifarefinder } = this.state;
 
-    if(taxifarefinder && lyft){
-      return(
+    if (taxifarefinder && lyft) {
+      return (
         <div>
           {this.state.taxifarefinder}
           {this.state.lyft}
         </div>
-        )
-    } else {
-      return <div> ... Loading </div>
-    }
+      );
+    } 
+    return <div> ... Loading</div>;
   }
 
   render() {
-    console.log(this.state.lyft
-      )
     const { 
       currentLatitude,
       currentLongitude,
       destinationLatitude,
       destinationLongitude,
     } = this.props.searchParameters;
-    
+
     return (
       <div>
         {this.displayAllEstimate()}
       </div>
-    )
+    );
   }
 }
 
