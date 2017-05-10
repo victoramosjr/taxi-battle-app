@@ -12,17 +12,19 @@ class Results extends Component {
     super(props);
 
     this.state = {
-      taxifarefinder: '$20',
+      taxifarefinder: '',
       lyft: '',
       uber: '',
     };
 
     this.getLyftEstimate = this.getLyftEstimate.bind(this);
     this.getTaxiFareFinderEstimate = this.getTaxiFareFinderEstimate.bind(this);
+    this.displayAllEstimate = this.displayAllEstimate.bind(this);
   }
 
   componentWillMount() {
     this.getTaxiFareFinderEstimate();
+    this.getLyftEstimate();
   }
 
   getTaxiFareFinderEstimate() {
@@ -50,9 +52,26 @@ class Results extends Component {
     } = this.props.searchParameters;
 
     axios.get(`/api/estimate/lyft/${currentLatitude}/${currentLongitude}/${destinationLatitude}/${destinationLongitude}`)
-      .then(estimate => {
-        // this.setState({lyft: estimate})
-      });
+      .then((estimate) => {
+        const minCost = estimate.data.cost_estimates[2].estimated_cost_cents_min * .01;
+        const maxCost = estimate.data.cost_estimates[2].estimated_cost_cents_min * .01;
+        this.setState({ lyft: `$${minCost}-${maxCost}` });
+      })
+      .catch(error => console.log(error));
+  }
+
+  displayAllEstimate() {
+    const { lyft, taxifarefinder } = this.state;
+
+    if (taxifarefinder && lyft) {
+      return (
+        <div>
+          {this.state.taxifarefinder}
+          {this.state.lyft}
+        </div>
+      );
+    } 
+    return <div> ... Loading</div>;
   }
 
   render() {
@@ -62,12 +81,12 @@ class Results extends Component {
       destinationLatitude,
       destinationLongitude,
     } = this.props.searchParameters;
-    
+
     return (
       <div>
-        {this.state.taxifarefinder}
+        {this.displayAllEstimate()}
       </div>
-    )
+    );
   }
 }
 
